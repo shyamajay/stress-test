@@ -3,35 +3,35 @@
 #include<stdbool.h>
 #include<math.h>
 
-int fib(int n)
-{
-    long long int a=0,b=1;
-    long long int c=0;
-    while(n>1)
-    {
-        c=a+b;
-        a=b;
-        b=c;
-        n--;
-    }
-    return c;
-}
-
 int fib_fast(int n)
 {
     int *a;
     long long int d;
-    a = (int*)malloc(sizeof(int)*(n+2));
+    a = (int*)malloc(sizeof(int)*(n));
     a[0]=0;
     a[1]=1;
-    for(int i=2;i<=n;i++)
+    for(int i=2;i<n;i++)
     {
         a[i]=a[i-1]+a[i-2];
     }
-    d = (long long)a[n];
+    d = (long long)a[n-1];
     return d;
 }
+int fib(int n)
+{
+    int a = -1,b = 1;
+    long long int c;
 
+        while(n>0)
+        {
+            c = a+b;
+            a = b;
+            b = c;
+            n--;
+        }
+        return c;
+
+}
 
 int main()
 {
