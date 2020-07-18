@@ -1,83 +1,47 @@
-/*
-This code is an example  of stress test in which I have used to test my code by
-auto generating inputs for product of max elements of an array.For stress test we
-have to take two methods to solve the same problem and then we have to compare the results.
-*/
-
 #include<stdio.h>
-#include <stdlib.h>
+#include<stdlib.h>
 #include<stdbool.h>
 
-int sum(int *a,long int k)
+int fib(int n)
 {
-    int j = 0,i = 0;
-    long long int s = 0;
-
-    for(i = 0;i < k;i++)
+    long long int a=0,b=1;
+    long long int c=0;
+    while(n>=0)
     {
-        for(j = i+1;j < k;j++)
-        {
-            if(a[i]*a[j] > s)
-            {
-                s = a[i]*a[j];
-            }
-        }
+        c=a+b;
+        a=b;
+        b=c;
+        n--;
     }
-
-    return s;
+    return c;
 }
 
-int sum_fast(int *a,long int k)
-{
-    int j = 0,index = -1;;
 
-    for(j = 0;j < k;j++)
-    {
-        if(index == -1 || a[j] > a[index])
-        {
-            index = j;
-        }
-    }
-
-    int index1 = -1;
-
-    for(j = 0;j < k;j++)
-    {
-        if(j != index && (index1 == -1 || a[j] > a[index1]))
-        {
-            index1 = j;
-        }
-    }
-
-    long long int m = a[index]*a[index1];
-    return m;
-}
-
-/*
-The main function is the one which generates input automatically and
-remember this can be used for integers and arithmetic calculation
-*/
-int main()
+int fib_fast(int n)
 {
     int *a;
+    long long int d;
+    a = (int*)malloc(sizeof(int)*(n+2));
+    a[0]=0;
+    a[1]=1;
+    for(int i=2;i<=n+2;i++)
+    {
+        a[i]=a[i-1]+a[i-2];
+    }
+    d = (long long)a[n+2];
+    return d;
+}
+
+int main()
+{
     while(true)
     {
         long int n;
-        n = rand()%10 + 2;
+        n = rand()%1000 + 2;
         printf("%ld\n",n);
-        a = (int*)malloc(sizeof(int)*n);
-        for(int i = 0;i < n;i++)
-        {
-            a[i]=(rand()%1000);
-        }
-         for(int i = 0;i < n;i++)
-        {
-            printf("%d ",a[i]);
-        }
-        printf("\n");
-        long long int res = sum(a,n);
-        long long int res1 = sum_fast(a,n);
-
+        long long int res = fib(n);
+        long long int res1 = fib_fast(n);
+        printf("%lld %lld\n",res,res1);
         if(res != res1)
         {
             printf("wrong\n");
@@ -87,5 +51,4 @@ int main()
             printf("ok\n");
     }
 
-    return 0;
 }
